@@ -68,12 +68,12 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).render("login", {
-        message: "Please provide email and password",
+      return res.status(400).json({
+        message: "No email or password",
       });
     }
     db.query(
-      "SELECT * FROM users WHERE email = ?",
+      "SELECT * FROM user WHERE email = ?",
       [email],
       async (error, results) => {
         console.log(results);
@@ -83,7 +83,7 @@ exports.login = async (req, res) => {
           //  comparing given password with hashed password
           !(await bcrypt.compare(password, results[0].password))
         ) {
-          res.status(401).render("login", {
+          res.status(401).json({
             message: "Email or Password is incorrect",
           });
         } else {
@@ -91,15 +91,16 @@ exports.login = async (req, res) => {
           const token = jwt.sign({ id }, process.env.SECRET, {
             expiresIn: "90d",
           });
+          //   res.json({ token });
           console.log("the token is: " + token);
 
           const cookieOptions = {
             expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
             httpOnly: true,
           };
-
+          //   res.json({ token, email, password });
           res.cookie("jwt", token, cookieOptions);
-          res.status(200).redirect("/");
+          res.status(200);
         }
       },
     );
