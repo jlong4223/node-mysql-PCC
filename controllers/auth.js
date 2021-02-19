@@ -62,7 +62,6 @@ exports.register = (req, res) => {
   );
 };
 
-// TODO test the login function
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -87,12 +86,13 @@ exports.login = async (req, res) => {
             message: "Email or Password is incorrect",
           });
         } else {
-          const id = results[0].id;
+          // grabbing the name from the req result
+          const id = results[0].name;
           const token = jwt.sign({ id }, process.env.SECRET, {
             expiresIn: "90d",
           });
           //   res.json({ token });
-          console.log("the token is: " + token);
+          console.log("the token is: " + token + " for " + id);
 
           const cookieOptions = {
             expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -100,7 +100,11 @@ exports.login = async (req, res) => {
           };
           //   res.json({ token, email, password });
           res.cookie("jwt", token, cookieOptions);
-          res.status(200);
+          res.status(200).send({
+            id,
+            email,
+            token,
+          });
         }
       },
     );
