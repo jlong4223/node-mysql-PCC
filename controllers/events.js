@@ -5,3 +5,5 @@ exports.getAll = (req, res) => {
     err ? console.log(err) : res.json(data);
   });
 };
+
+// TODO create, delete, getById
