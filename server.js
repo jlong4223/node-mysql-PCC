@@ -8,6 +8,7 @@ require("./config/db-config");
 // imported routes
 const homeRoute = require("./routes/welcome");
 const authRoute = require("./routes/auth");
+const eventsRoute = require("./routes/events");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,6 +18,7 @@ app.use(cors());
 // routes being used
 app.use("/", homeRoute);
 app.use("/", authRoute);
+app.use("/", eventsRoute);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
