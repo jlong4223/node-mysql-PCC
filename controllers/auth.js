@@ -69,15 +69,8 @@ exports.login = async (req, res) => {
       [email],
       async (error, results) => {
         console.log(results);
-        if (
-          !results ||
-          // there should only be one in the database so im using 0
-          // comparing given password with hashed password
-          !(await bcrypt.compare(password, results[0].password))
-        ) {
-          res.status(401).json({
-            message: "Email or Password is incorrect",
-          });
+        if (results.length === 0) {
+          return res.status(401).json({ error });
         } else {
           // grabbing the entire user for the jwt
           const user = results[0];
@@ -103,3 +96,7 @@ exports.login = async (req, res) => {
     console.log(error);
   }
 };
+
+// TODO add bio- something like - Insert into user where bio = ? req.body.bio
+
+// TODO get all users limit to only name, pic, bio
