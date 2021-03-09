@@ -1,4 +1,8 @@
-const sql = require("../config/db-config");
+// local mysql:
+// const sql = require("../config/db-config");
+
+// ClearDB:
+const sql = require("../config/clear-db");
 
 const Event = function (customer) {
   this.title = customer.title;

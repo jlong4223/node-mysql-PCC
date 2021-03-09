@@ -13,6 +13,8 @@ This is a backend api for the React.js-pc-client frontend.
 - Postman
 - Sequal Ace
 - Cors
+- Heroku
+- ClearDB
 
 ## Deployed Link:
 
