@@ -3,7 +3,8 @@ const logger = require("morgan");
 const cors = require("cors");
 const app = express();
 require("dotenv").config();
-require("./config/db-config");
+// require("./config/db-config");
+require("./config/clear-db");
 
 // imported routes
 const homeRoute = require("./routes/welcome");
