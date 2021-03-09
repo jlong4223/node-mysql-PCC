@@ -1,4 +1,5 @@
-const db = require("../config/db-config");
+// const db = require("../config/db-config");
+const db = require("../config/clear-db.js");
 const Event = require("../models/event");
 
 exports.getAll = (req, res) => {
