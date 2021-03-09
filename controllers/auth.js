@@ -1,15 +1,17 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const util = require("util");
+require("dotenv").config();
+
+// change query depending on local or heroku db
 const db = require("../config/db-config");
 const hk = require("../config/clear-db");
-require("dotenv").config();
 
 exports.register = (req, res) => {
   const { name, email, password, passwordConfirm } = req.body;
   const SALT_ROUNDS = 8;
 
-  db.query(
+  hk.query(
     "SELECT email FROM user WHERE email = ?",
     [email],
     async (error, result) => {
@@ -34,7 +36,7 @@ exports.register = (req, res) => {
       let hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
       console.log(hashedPassword);
 
-      db.query(
+      hk.query(
         "INSERT INTO user SET ?",
         {
           name: name,
@@ -65,7 +67,7 @@ exports.login = async (req, res) => {
         message: "No email or password",
       });
     }
-    db.query(
+    hk.query(
       "SELECT * FROM user WHERE email = ?",
       [email],
       async (error, results) => {
