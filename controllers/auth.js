@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const util = require("util");
 const db = require("../config/db-config");
+const hk = require("../config/clear-db");
 require("dotenv").config();
 
 exports.register = (req, res) => {

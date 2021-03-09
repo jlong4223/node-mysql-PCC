@@ -1,6 +1,7 @@
 const mysql = require("mysql");
 require("dotenv").config();
 
+// local mysql
 dbVars = {
   HOST: "localhost",
   USER: "root",
