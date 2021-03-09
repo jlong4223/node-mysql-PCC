@@ -16,6 +16,6 @@ This is a backend api for the React.js-pc-client frontend.
 
 ## Deployed Link:
 
-[Click Here](#) for the deployed api.
+[Click Here](https://node-mysql-pc-api.herokuapp.com/) for the deployed api.
 
 ## Future Enhancements:
