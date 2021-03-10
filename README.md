@@ -15,6 +15,8 @@ This is a backend api for the React.js-pc-client frontend.
 - Cors
 - Heroku
 - ClearDB
+- OAuth2
+- Nodemailer
 
 ## Deployed Link:
 
@@ -23,5 +25,4 @@ This is a backend api for the React.js-pc-client frontend.
 ## Future Enhancements:
 
 - message board (socket.io)
-- nodemailer
 - routes/controllers for user adding profile data
