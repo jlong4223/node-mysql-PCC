@@ -13,15 +13,31 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-let mailOptions = {
-  from: "jlong4223@gmail.com",
-  to: "jlong4223@gmail.com",
-  subject: "PC-api",
-  text: "hi from the project",
-};
-
-transporter.sendMail(mailOptions, function (err, data) {
-  err ? console.log("error: " + err) : console.log("message sent");
+transporter.verify((err, success) => {
+  err
+    ? console.log(err)
+    : console.log(`=== Server is ready to take messages: ${success} ===`);
 });
 
-// TODO create route and export to server
+const sendMessage = (req, res, next) => {
+  let mailOptions = {
+    from: `${req.body.emailState.email}`,
+    to: process.env.EMAIL,
+    subject: `Message From: ${req.body.emailState.email}, within PortChaveriat`,
+    text: `${req.body.emailState.email} says, ${req.body.message.message}`,
+  };
+
+  transporter.sendMail(mailOptions, function (err, data) {
+    err
+      ? console.log("error: " + err) +
+        res.json({
+          status: "fail",
+        })
+      : console.log(`message sent: ${data}`) +
+        res.json({
+          status: "success",
+        });
+  });
+};
+
+module.exports = { sendMessage };
