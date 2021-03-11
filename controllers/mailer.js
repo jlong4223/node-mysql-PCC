@@ -29,12 +29,10 @@ const sendMessage = (req, res, next) => {
 
   transporter.sendMail(mailOptions, function (err, data) {
     err
-      ? console.log("error: " + err) +
-        res.json({
+      ? res.json({
           status: "fail",
         })
-      : console.log(`message sent: ${data}`) +
-        res.json({
+      : res.json({
           status: "success",
         });
   });

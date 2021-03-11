@@ -3,7 +3,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const app = express();
 require("dotenv").config();
-// require("./controllers/mailer");
+const mailer = require("./controllers/mailer");
 
 // databases ===================
 // ===> local mysql
@@ -16,7 +16,7 @@ require("./config/clear-db");
 const homeRoute = require("./routes/welcome");
 const authRoute = require("./routes/auth");
 const eventsRoute = require("./routes/events");
-const mailRoute = require("./routes/mailer");
+// const mailRoute = require("./routes/mailer");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,7 +27,8 @@ app.use(cors());
 app.use("/", homeRoute);
 app.use("/", authRoute);
 app.use("/", eventsRoute);
-app.use("/", mailRoute);
+// app.use("/", mailRoute);
+app.post("/send", mailer.sendMessage);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
